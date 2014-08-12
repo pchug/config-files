@@ -56,7 +56,7 @@
 ;(require 'color-theme)
 ;(color-theme-robin-hood)
 
-(pc-selection-mode)
+;(pc-selection-mode)
 
 ;; ido mode
 (require 'ido)
