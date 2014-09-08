@@ -1,0 +1,22 @@
+#!/bin/sh
+
+cd $HOME/.chef
+
+knife_ln='knife'
+validator_ln='chef-validator'
+
+if [ -h $knife_ln.rb -a -h $validator_ln.pem ]; then
+    echo "symbolic links detected"
+    ls -l $knife_ln.rb $validator_ln.pem | grep prod
+    if [ $? -eq 0 ]; then
+	echo 'production links detected. Toggling to dev.'
+	ln -sf $knife_ln-dev.rb $knife_ln.rb
+	ln -sf $validator_ln-dev.pem $validator_ln.pem
+    else
+	echo 'development links detected. Toggling to prod'
+	ln -sf $knife_ln-prod.rb $knife_ln.rb
+	ln -sf $validator_ln-prod.pem $validator_ln.pem
+    fi
+else
+    echo 'No Symlinks detected.'
+fi
